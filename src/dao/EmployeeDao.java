@@ -101,4 +101,25 @@ public class EmployeeDao {
         
     }
 
+    
+    public void deleteEmployee(EmployeeDto employeeDto){
+        String sqlQuery = "DELETE FROM employee WHERE id = ?";
+        
+        connection = new ConnectionDao().conectDataBase();
+
+        try {
+            preparingConnection = connection.prepareStatement(sqlQuery);
+
+            // Fill in the question mark
+            preparingConnection.setInt(1, employeeDto.getEmployeeId());
+
+            preparingConnection.execute();
+            preparingConnection.close();
+
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, "EmployeeDao delete error: " + error.getMessage());
+        }
+    }
+    
+    
 }

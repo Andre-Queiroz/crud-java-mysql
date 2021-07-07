@@ -43,7 +43,7 @@ public class EmployeeFormView extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         btnCleanFields = new javax.swing.JButton();
         btnAlter = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,7 +108,12 @@ public class EmployeeFormView extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Delete");
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,7 +144,7 @@ public class EmployeeFormView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnAlter, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27))))
             .addGroup(layout.createSequentialGroup()
@@ -172,7 +177,7 @@ public class EmployeeFormView extends javax.swing.JFrame {
                     .addComponent(btnRegister)
                     .addComponent(btnCleanFields)
                     .addComponent(btnAlter)
-                    .addComponent(jButton2))
+                    .addComponent(btnDelete))
                 .addGap(24, 24, 24))
         );
 
@@ -201,6 +206,12 @@ public class EmployeeFormView extends javax.swing.JFrame {
         listEmployees();
         cleanFields();
     }//GEN-LAST:event_btnAlterActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        deleteEmployee();
+        listEmployees();
+        cleanFields();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,11 +253,11 @@ public class EmployeeFormView extends javax.swing.JFrame {
     private javax.swing.JLabel address;
     private javax.swing.JButton btnAlter;
     private javax.swing.JButton btnCleanFields;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnLoadFields;
     private javax.swing.JButton btnRegister;
     private javax.swing.JTable employeeTable;
     private javax.swing.JLabel id;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;
     private javax.swing.JLabel title;
@@ -260,6 +271,10 @@ public class EmployeeFormView extends javax.swing.JFrame {
         String name = txtName.getText();
         String address = txtAddress.getText();
 
+        if (name.equalsIgnoreCase("") || address.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Fill all the fields.");
+            return;
+        }
         // Throw values to dto
         EmployeeDto employeeDto = new EmployeeDto();
         employeeDto.setEmployeeName(name);
@@ -268,7 +283,6 @@ public class EmployeeFormView extends javax.swing.JFrame {
         // Run dao class and its methods
         EmployeeDao dao = new EmployeeDao();
         dao.registerEmployee(employeeDto);
-
     }
 
     private void listEmployees() {
@@ -294,12 +308,14 @@ public class EmployeeFormView extends javax.swing.JFrame {
     }
 
     private void loadFields() {
-
         int selectedLine = employeeTable.getSelectedRow();
+        if (selectedLine == -1) {
+            JOptionPane.showMessageDialog(null, "First you need to select a row.");
+            return;
+        }
         txtId.setText(employeeTable.getModel().getValueAt(selectedLine, 0).toString());
         txtName.setText(employeeTable.getModel().getValueAt(selectedLine, 1).toString());
         txtAddress.setText(employeeTable.getModel().getValueAt(selectedLine, 2).toString());
-
     }
 
     private void cleanFields() {
@@ -318,20 +334,36 @@ public class EmployeeFormView extends javax.swing.JFrame {
         verification = txtId.getText();
         if (verification.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "You need to select a row and load the fields.");
-        } else {
-
-            employeeId = Integer.parseInt(txtId.getText());
-            employeeName = txtName.getText();
-            employeeAddress = txtAddress.getText();
-
-            EmployeeDto dto = new EmployeeDto();
-            dto.setEmployeeId(employeeId);
-            dto.setEmployeeName(employeeName);
-            dto.setEmployeeAddress(employeeAddress);
-
-            EmployeeDao dao = new EmployeeDao();
-            dao.alterEmployee(dto);
+            return;
         }
+        employeeId = Integer.parseInt(txtId.getText());
+        employeeName = txtName.getText();
+        employeeAddress = txtAddress.getText();
+
+        EmployeeDto dto = new EmployeeDto();
+        dto.setEmployeeId(employeeId);
+        dto.setEmployeeName(employeeName);
+        dto.setEmployeeAddress(employeeAddress);
+
+        EmployeeDao dao = new EmployeeDao();
+        dao.alterEmployee(dto);
     }
 
+    public void deleteEmployee() {
+        int employeeId;
+        String verification;
+
+        verification = txtId.getText();
+        if (verification.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "You need to select a row and load the fields.");
+            return;
+        }
+        employeeId = Integer.parseInt(txtId.getText());
+
+        EmployeeDto dto = new EmployeeDto();
+        dto.setEmployeeId(employeeId);
+
+        EmployeeDao dao = new EmployeeDao();
+        dao.deleteEmployee(dto);
+    }
 }
