@@ -37,6 +37,7 @@ public class EmployeeDao {
         try {
             preparingConnection = connection.prepareStatement(sqlQuery);
 
+            // Fill in the question marks
             preparingConnection.setString(1, employeeDto.getEmployeeName());
             preparingConnection.setString(2, employeeDto.getEmployeeAddress());
 
@@ -75,6 +76,29 @@ public class EmployeeDao {
             JOptionPane.showMessageDialog(null, "EmployeeDao search error: " + error.getMessage());
         }
         return employeeList;
+    }
+    
+    public void alterEmployee(EmployeeDto employeeDto){
+        
+        String sqlQuery = "UPDATE employee SET employeeName = ?, employeeAddress = ? WHERE id = ?";
+        
+        connection = new ConnectionDao().conectDataBase();
+
+        try {
+            preparingConnection = connection.prepareStatement(sqlQuery);
+
+            // Fill in the question marks
+            preparingConnection.setString(1, employeeDto.getEmployeeName());
+            preparingConnection.setString(2, employeeDto.getEmployeeAddress());
+            preparingConnection.setInt(3, employeeDto.getEmployeeId());
+
+            preparingConnection.execute();
+            preparingConnection.close();
+
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, "EmployeeDao alter error: " + error.getMessage());
+        }
+        
     }
 
 }

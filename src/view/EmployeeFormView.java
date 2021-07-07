@@ -42,6 +42,8 @@ public class EmployeeFormView extends javax.swing.JFrame {
         txtId = new javax.swing.JTextField();
         title = new javax.swing.JLabel();
         btnCleanFields = new javax.swing.JButton();
+        btnAlter = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +101,15 @@ public class EmployeeFormView extends javax.swing.JFrame {
             }
         });
 
+        btnAlter.setText("Alter");
+        btnAlter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Delete");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,27 +118,29 @@ public class EmployeeFormView extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                            .addComponent(address)
+                            .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAddress)
+                            .addComponent(txtName)
+                            .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(66, 66, 66))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                    .addComponent(address)
-                                    .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAddress)
-                                    .addComponent(txtName)
-                                    .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnRegister)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnLoadFields)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnCleanFields)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(66, 66, 66))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAlter, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(135, 135, 135)
@@ -157,7 +170,9 @@ public class EmployeeFormView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLoadFields)
                     .addComponent(btnRegister)
-                    .addComponent(btnCleanFields))
+                    .addComponent(btnCleanFields)
+                    .addComponent(btnAlter)
+                    .addComponent(jButton2))
                 .addGap(24, 24, 24))
         );
 
@@ -180,6 +195,12 @@ public class EmployeeFormView extends javax.swing.JFrame {
     private void btnCleanFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanFieldsActionPerformed
         cleanFields();
     }//GEN-LAST:event_btnCleanFieldsActionPerformed
+
+    private void btnAlterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterActionPerformed
+        alterEmployee();
+        listEmployees();
+        cleanFields();
+    }//GEN-LAST:event_btnAlterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,11 +240,13 @@ public class EmployeeFormView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel address;
+    private javax.swing.JButton btnAlter;
     private javax.swing.JButton btnCleanFields;
     private javax.swing.JButton btnLoadFields;
     private javax.swing.JButton btnRegister;
     private javax.swing.JTable employeeTable;
     private javax.swing.JLabel id;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;
     private javax.swing.JLabel title;
@@ -247,7 +270,7 @@ public class EmployeeFormView extends javax.swing.JFrame {
         dao.registerEmployee(employeeDto);
 
     }
-    
+
     private void listEmployees() {
         try {
             EmployeeDao employee = new EmployeeDao();
@@ -269,21 +292,46 @@ public class EmployeeFormView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error listing values" + error.getMessage());
         }
     }
-    
-    private void loadFields(){
-        
-        int selectedLine  = employeeTable.getSelectedRow();
+
+    private void loadFields() {
+
+        int selectedLine = employeeTable.getSelectedRow();
         txtId.setText(employeeTable.getModel().getValueAt(selectedLine, 0).toString());
         txtName.setText(employeeTable.getModel().getValueAt(selectedLine, 1).toString());
         txtAddress.setText(employeeTable.getModel().getValueAt(selectedLine, 2).toString());
-        
+
     }
-    
-    private void cleanFields(){
+
+    private void cleanFields() {
         txtId.setText("");
         txtName.setText("");
         txtAddress.setText("");
         txtName.requestFocus();
     }
-    
+
+    public void alterEmployee() {
+        int employeeId;
+        String verification;
+        String employeeName;
+        String employeeAddress;
+
+        verification = txtId.getText();
+        if (verification.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "You need to select a row and load the fields.");
+        } else {
+
+            employeeId = Integer.parseInt(txtId.getText());
+            employeeName = txtName.getText();
+            employeeAddress = txtAddress.getText();
+
+            EmployeeDto dto = new EmployeeDto();
+            dto.setEmployeeId(employeeId);
+            dto.setEmployeeName(employeeName);
+            dto.setEmployeeAddress(employeeAddress);
+
+            EmployeeDao dao = new EmployeeDao();
+            dao.alterEmployee(dto);
+        }
+    }
+
 }
