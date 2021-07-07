@@ -37,10 +37,15 @@ public class EmployeeFormView extends javax.swing.JFrame {
         btnRegister = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         employeeTable = new javax.swing.JTable();
-        btnRefresh = new javax.swing.JButton();
+        btnLoadFields = new javax.swing.JButton();
+        id = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        title = new javax.swing.JLabel();
+        btnCleanFields = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         name.setText("Name");
 
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -49,6 +54,7 @@ public class EmployeeFormView extends javax.swing.JFrame {
             }
         });
 
+        address.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         address.setText("Address");
 
         btnRegister.setText("Register");
@@ -71,10 +77,25 @@ public class EmployeeFormView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(employeeTable);
 
-        btnRefresh.setText("Refresh");
-        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+        btnLoadFields.setText("Load Fields");
+        btnLoadFields.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshActionPerformed(evt);
+                btnLoadFieldsActionPerformed(evt);
+            }
+        });
+
+        id.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        id.setText("Id");
+
+        txtId.setEnabled(false);
+
+        title.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        title.setText("Employee Registration");
+
+        btnCleanFields.setText("Clean Fields");
+        btnCleanFields.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCleanFieldsActionPerformed(evt);
             }
         });
 
@@ -82,39 +103,62 @@ public class EmployeeFormView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(address)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                        .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(25, 25, 25))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                                    .addComponent(address)
+                                    .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtAddress)
+                                    .addComponent(txtName)
+                                    .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnRegister)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLoadFields)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCleanFields)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(66, 66, 66))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(title)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(name)
-                .addGap(18, 18, 18)
-                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(address)
-                .addGap(18, 18, 18)
-                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(36, 36, 36)
+                .addComponent(title)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegister)
-                    .addComponent(btnRefresh))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(id))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(name))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(address))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLoadFields)
+                    .addComponent(btnRegister)
+                    .addComponent(btnCleanFields))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -126,11 +170,16 @@ public class EmployeeFormView extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         registerEmployee();
+        listEmployees();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
-    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        listEmployees();
-    }//GEN-LAST:event_btnRefreshActionPerformed
+    private void btnLoadFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadFieldsActionPerformed
+        loadFields();
+    }//GEN-LAST:event_btnLoadFieldsActionPerformed
+
+    private void btnCleanFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanFieldsActionPerformed
+        cleanFields();
+    }//GEN-LAST:event_btnCleanFieldsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,12 +219,16 @@ public class EmployeeFormView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel address;
-    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnCleanFields;
+    private javax.swing.JButton btnLoadFields;
     private javax.swing.JButton btnRegister;
     private javax.swing.JTable employeeTable;
+    private javax.swing.JLabel id;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;
+    private javax.swing.JLabel title;
     private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
@@ -215,6 +268,22 @@ public class EmployeeFormView extends javax.swing.JFrame {
         } catch (Exception error) {
             JOptionPane.showMessageDialog(null, "Error listing values" + error.getMessage());
         }
+    }
+    
+    private void loadFields(){
+        
+        int selectedLine  = employeeTable.getSelectedRow();
+        txtId.setText(employeeTable.getModel().getValueAt(selectedLine, 0).toString());
+        txtName.setText(employeeTable.getModel().getValueAt(selectedLine, 1).toString());
+        txtAddress.setText(employeeTable.getModel().getValueAt(selectedLine, 2).toString());
+        
+    }
+    
+    private void cleanFields(){
+        txtId.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtName.requestFocus();
     }
     
 }
